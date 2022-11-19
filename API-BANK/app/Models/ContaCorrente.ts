@@ -12,9 +12,6 @@ export default class ContaCorrente extends BaseModel {
   @column({ serializeAs: null })
   public conta: number
 
-  @column()
-  public agencia: number
-
   @column({columnName: 'cliente_id'})
   public idcliente: number
 

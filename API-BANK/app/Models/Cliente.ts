@@ -1,13 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import ContaCorrente from './ContaCorrente'
-
+import Agencia from './Agencia'
 
 export default class Cliente extends BaseModel {
 
   @column({ isPrimary: true })
   public id: number
-  
+
+  @column({columnName: 'agencia_id'})
+  public idagencia: number
+
   @column()
   public nome_completo: string
 
@@ -25,6 +28,10 @@ export default class Cliente extends BaseModel {
   })
   public contascorrente: HasMany<typeof ContaCorrente>
 
+  @belongsTo(() => Agencia, {
+    foreignKey: 'idagencia'
+  })
+  public agencia: BelongsTo<typeof Agencia>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
