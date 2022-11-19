@@ -26,6 +26,9 @@ Route.group(() => {
     return { hello: 'world' }
   })
 
-  Route.post('/conta_corrente', 'UsersController.store')
+  Route.post('/conta_corrente_usuario_existente', 'ContaController.criarContaClienteExistente')
+  Route.post('/conta_corrente_usuario_inexistente', 'ContaController.criarContaClienteInexistente')
+  
+  
 
 }).prefix('/api')
