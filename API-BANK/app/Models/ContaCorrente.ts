@@ -9,14 +9,14 @@ export default class ContaCorrente extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column({ serializeAs: null })
+  @column()
   public conta: number
 
   @column({columnName: 'cliente_id'})
   public idcliente: number
 
-  @column()
-  public senha: string
+  @column({ serializeAs: null })
+  public password: string
 
   @column()
   public saldo:number
@@ -44,6 +44,6 @@ export default class ContaCorrente extends BaseModel {
 
   @beforeSave()
   public static async hashPassword(conta: ContaCorrente){
-    if (conta.$dirty.senha) conta.senha = await Hash.make(conta.senha)
+    if (conta.$dirty.password) conta.password = await Hash.make(conta.password)
   }
 }

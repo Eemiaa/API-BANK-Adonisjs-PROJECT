@@ -29,6 +29,7 @@ Route.group(() => {
   Route.post('/conta_corrente_usuario_existente', 'ContaController.criarContaClienteExistente')
   Route.post('/conta_corrente_usuario_inexistente', 'ContaController.criarContaClienteInexistente')
   
+  Route.post('/login', 'SessaosController.loginConta')
   
 
 }).prefix('/api')
