@@ -39,7 +39,6 @@ export default class SessaosController {
                         message:'O cliente foi autenticado com sucesso!',
                         conta: auth.user,
                         token,
-                        logout:auth.use('api').isLoggedOut, login:auth.use('api').isLoggedIn
                     })
                     //
                 }else throw new BadRequest('Conta Corrente não existe na agência', 401)

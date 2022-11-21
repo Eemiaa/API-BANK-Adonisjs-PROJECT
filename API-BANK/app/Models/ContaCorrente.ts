@@ -1,9 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Cliente from './Cliente'
-import Transacao from './Transacao'
 import Hash from '@ioc:Adonis/Core/Hash'
-import LinkToken from './LinkToken'
 
 
 export default class ContaCorrente extends BaseModel {
@@ -32,17 +30,7 @@ export default class ContaCorrente extends BaseModel {
     foreignKey: 'idcliente'
   })
   public cliente: BelongsTo<typeof Cliente>
-
-  @hasMany(() => Transacao, {
-    foreignKey: 'idContaOrigem'
-  })
-  public transacoesOrigem: HasMany<typeof Transacao>
-
-  @hasMany(() => Transacao, {
-    foreignKey: 'idContaDestino'
-  })
-  public transacoesDestino: HasMany<typeof Transacao>
-
+  
   @beforeSave()
   public static async hashPassword(conta: ContaCorrente){
     if (conta.$dirty.password) conta.password = await Hash.make(conta.password)

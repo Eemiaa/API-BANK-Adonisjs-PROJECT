@@ -20,18 +20,21 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-//Route.group(() => {
-//}).prefix('/api')
+Route.group(() => {
+
+    Route.post('/criarContaUsuarioExistente', 'ContaController.criarContaClienteExistente')
+    Route.post('/criarContaUsuarioInexistente', 'ContaController.criarContaClienteInexistente')
+    
+    Route.post('/sessaoLogin', 'SessaosController.loginConta')
+    Route.delete('/sessaoLogout', 'SessaosController.logoutConta')
+    
+    Route.get('/consultarSaldo', 'ContaController.consultarSaldoConta')
+    Route.post('/consultarExtrato', 'TransacaosController.consultarExtratoConta')
+    
+    Route.post('/comprarGiftCard', 'TransacaosController.comprarGiftCard')
+    Route.post('/realizarTransferencia', 'TransacaosController.realizarTransferencia')
+
+}).prefix('/api')
 
 
-Route.post('/conta_corrente_usuario_existente', 'ContaController.criarContaClienteExistente')
-Route.post('/conta_corrente_usuario_inexistente', 'ContaController.criarContaClienteInexistente')
 
-Route.post('/sessao', 'SessaosController.loginConta')
-Route.delete('/sessao', 'SessaosController.logoutConta')
-
-Route.post('/consultarsaldo', 'ContaController.consultarSaldoConta')
-Route.get('/consultarExtrato', 'TransacaosController.consultarExtratoConta')
-
-Route.post('/comprarGiftCard', 'TransacaosController.comprarGiftCard')
-Route.post('/realizarTransferencia', 'TransacaosController.realizarTransferencia')

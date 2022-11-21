@@ -106,7 +106,7 @@ export default class ContaController {
         }
     }
 
-    public async consultarSaldoConta({request, auth, response}: HttpContextContract){
+    public async consultarSaldoConta({auth, response}: HttpContextContract){
         
         try{
             await auth.use('api').authenticate()
