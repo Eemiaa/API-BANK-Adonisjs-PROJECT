@@ -4,6 +4,7 @@ import BadRequest from 'App/Exceptions/BadRequestException'
 import Agencia from 'App/Models/Agencia'
 import Cliente from 'App/Models/Cliente'
 import ContaCorrente from 'App/Models/ContaCorrente'
+import GiftCard from 'App/Models/GiftCard'
 import Transacao from 'App/Models/Transacao'
 
 export default class TransacaosController {
@@ -16,8 +17,8 @@ export default class TransacaosController {
             var data_final = new Date(date.data_inicial)
             if(data_final && data_inicial){
                 if(data_final.getDay() <= data_inicial.getDay() && auth.user?.id ){
-                    try{
-                        const requisicao = await Transacao.query().where('id_conta_origem', auth.user.id).where('created_at', '<=', data_inicial).andWhere('created_at', '>=', data_final)
+                    const requisicao = await Transacao.query().where('id_conta_origem', auth.user.id).where('created_at', '<=', data_inicial).andWhere('created_at', '>=', data_final)
+                    if(requisicao[0]){
                         let resposta = new Array
                         for(let i=0; i < requisicao.length; i++){
                             resposta.push({
@@ -27,14 +28,52 @@ export default class TransacaosController {
                         })
                         }
                         return response.ok(resposta)
-                    }catch{
-                    }return response.send({code: 200, message:'Não foi encontrada nenhuma transação.'})
+                    }else return response.send({code: 200, message:'Não foi encontrada nenhuma transação.'})
                 }else throw new BadRequest('Data final deve ser igual ou maior que a Data Inicial!', 422)
             }else throw new BadRequest('Formato de data inválido!', 401)
         }else throw new BadRequest('Falha na autentição do cliente, token incorreto!', 403)
     }
 
-    public async comprarGiftCard({}: HttpContextContract){
+    public async comprarGiftCard({auth, response, request}: HttpContextContract){
+        const verificarEmpresa = (gift, giftCard) => {
+            for(let i=0; i<giftCard.length ;i++){
+                if(gift.empresa == giftCard[i].empresa){
+                    return true
+                }
+                return false
+            }
+        }
+        
+        const autenticacao =  await auth.use('api').authenticate()
+        if(autenticacao){
+            const gift = request.only(['servico','empresa','valor'])
+            const giftCard = await GiftCard.query().where('servico', gift.servico)
+            if(giftCard[0]){
+                if(verificarEmpresa(gift, giftCard)){
+                    if( auth.user?.saldo && auth.user.saldo >= gift.valor){
+                        //logs
+                        await Transacao.create({
+                            id_conta_origem: auth.user.id,
+                            id_conta_destino: -1,
+                            natureza: '-',
+                            valor: gift.valor,
+                            empresa: gift.empresa,
+                            servico: gift.servico,
+                        })
+                        //update
+                        auth.user.saldo = Math.fround(auth.user.saldo) - Math.fround(gift.valor)
+                        await auth.user.save()
+
+                        return response.ok({
+                            code: 201,
+                            message: "Transação executada com sucesso!",
+                        })
+                        
+                    }else throw new BadRequest('Saldo insuficiente!', 400)
+                }else throw new BadRequest('Empresa inexistente!', 401)
+            }else throw new BadRequest('Serviço inexistente!', 401)
+        }else throw new BadRequest('Falha na autentição do cliente, token incorreto!', 403)
+
     }
 
     public async realizarTransferencia({auth, response, request}: HttpContextContract){
