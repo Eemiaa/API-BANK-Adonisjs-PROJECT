@@ -20,16 +20,18 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.group(() => {
+//Route.group(() => {
+//}).prefix('/api')
 
-  Route.get('/', async () => {
-    return { hello: 'world' }
-  })
 
-  Route.post('/conta_corrente_usuario_existente', 'ContaController.criarContaClienteExistente')
-  Route.post('/conta_corrente_usuario_inexistente', 'ContaController.criarContaClienteInexistente')
-  
-  Route.post('/login', 'SessaosController.loginConta')
-  
+Route.post('/conta_corrente_usuario_existente', 'ContaController.criarContaClienteExistente')
+Route.post('/conta_corrente_usuario_inexistente', 'ContaController.criarContaClienteInexistente')
 
-}).prefix('/api')
+Route.post('/sessao', 'SessaosController.loginConta')
+Route.delete('/sessao', 'SessaosController.logoutConta')
+
+Route.post('/consultarsaldo', 'ContaController.consultarSaldoConta')
+Route.get('/consultarExtrato', 'TransacaosController.consultarExtratoConta')
+
+Route.post('/comprarGiftCard', 'TransacaosController.comprarGiftCard')
+Route.post('/realizarTransferencia', 'TransacaosController.realizarTransferencia')

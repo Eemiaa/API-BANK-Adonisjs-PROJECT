@@ -3,6 +3,7 @@ import { BaseModel, beforeSave, BelongsTo, belongsTo, column, HasMany, hasMany }
 import Cliente from './Cliente'
 import Transacao from './Transacao'
 import Hash from '@ioc:Adonis/Core/Hash'
+import LinkToken from './LinkToken'
 
 
 export default class ContaCorrente extends BaseModel {

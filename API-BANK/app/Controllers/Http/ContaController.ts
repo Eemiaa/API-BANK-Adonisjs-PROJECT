@@ -106,4 +106,32 @@ export default class ContaController {
         }
     }
 
+    public async consultarSaldoConta({request, auth, response}: HttpContextContract){
+        
+        try{
+            await auth.use('api').authenticate()
+            const idcliente = await auth.user?.idcliente
+            const conta = await ContaCorrente.findBy('id', idcliente)
+
+            return response.send({
+                code:200,
+                saldo:conta?.saldo})
+        } catch{
+
+            throw new BadRequest('falha na autentição do cliente, token incorreto!', 403)
+
+        }
+        
+        
+        //const cont = 
+
+        //const conta = await ContaCorrente.findOrFail(contaPayload.id)
+
+        
+        //return response.created(conta)
+
+
+    }
+
+
 }

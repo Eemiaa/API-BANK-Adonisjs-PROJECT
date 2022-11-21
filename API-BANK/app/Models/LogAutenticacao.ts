@@ -6,19 +6,14 @@ export default class LogAutenticacao extends BaseModel {
   public id: number
 
   @column()
-  public id_conta: number
+  public idconta: number
 
   @column()
-  public id_agencia: number
-
-  @column()
-  public data_autenticacao: DateTime
+  public idagencia: number
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public data_autenticacao: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
 
 
   
