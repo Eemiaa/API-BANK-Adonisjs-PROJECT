@@ -24,7 +24,7 @@ API-BANK is a self-service banking system that must offer at least the basic ope
 
 <a href="https://miro.com/app/board/uXjVPFofpSU=/" >to know more...</a>
 
-<img align="center" src="https://user-images.githubusercontent.com/88001551/203872608-18aac3ee-7b24-4f78-8691-a5ed3db3ed63.png" >
+<img align="center" src="https://user-images.githubusercontent.com/88001551/203874047-ee73ccc2-76ea-4d56-bdfc-e2a33667ef44.png" >
 
 </br></br>
 <hr>
