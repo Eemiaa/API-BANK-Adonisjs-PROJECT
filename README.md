@@ -10,3 +10,9 @@ API-BANK is a self-service banking system that must offer at least the basic ope
 
 </br></br>
 <hr>
+
+### How is the database designed?
+
+ <a href="https://dbdiagram.io/d/636e47acc9abfc611171f87a" >to know more...</a>
+
+<img align="center" src="https://user-images.githubusercontent.com/88001551/203871465-defb010e-3c7e-4d48-bc11-36978565079d.png" >
