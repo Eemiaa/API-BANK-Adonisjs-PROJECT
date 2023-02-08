@@ -22,7 +22,7 @@ API-BANK is a self-service banking system that must offer at least the basic ope
 
 ### How is the use case architecture designed?
 
-<a href="https://miro.com/app/board/uXjVPFofpSU=/" >to know more...</a>
+<a href="https://miro.com/app/board/uXjVPFofpSU=/?moveToWidget=3458764545665315525&cot=14" >to know more...</a>
 
 <img align="center" src="https://user-images.githubusercontent.com/88001551/203874047-ee73ccc2-76ea-4d56-bdfc-e2a33667ef44.png" >
 
